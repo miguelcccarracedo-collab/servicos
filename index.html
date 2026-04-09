@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miguel Castanho — Produção de Audiolivros e Áudio-Descrição</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:#0d1b2e;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;height:64px;background:rgba(255,255,255,0.96);border-bottom:1px solid rgba(10,22,40,0.08)}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#0a1628}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:12px;font-weight:500;color:#6b7a94;text-transform:uppercase;letter-spacing:0.05em;transition:color 0.2s}
+.nav-links a:hover{color:#0a1628}
+
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px 6vw 80px;background:#f0f4f9;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-20%;right:-5%;width:50vw;height:50vw;border-radius:50%;border:1px solid rgba(15,76,138,0.08);pointer-events:none}
+.hero-inner{max-width:720px;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#0f4c8a;background:rgba(15,76,138,0.07);border:1px solid rgba(15,76,138,0.18);border-radius:20px;padding:6px 16px;margin-bottom:32px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:#0f4c8a;flex-shrink:0}
+.hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,6vw,68px);line-height:1.05;letter-spacing:-0.03em;color:#0a1628;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:#0f4c8a}
+.hero-sub{font-size:clamp(15px,2vw,17px);color:#3a4a60;font-weight:300;margin-bottom:20px;max-width:560px;line-height:1.7}
+.hero-edital{display:inline-flex;align-items:flex-start;gap:10px;background:#fff;border:1px solid rgba(15,76,138,0.15);border-left:3px solid #0f4c8a;border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:44px;max-width:560px}
+.edital-icon{font-size:16px;margin-top:2px;flex-shrink:0}
+.edital-text{font-size:13px;color:#3a4a60;line-height:1.6}
+.edital-text strong{color:#0a1628;font-weight:500}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:#0f4c8a;color:#fff;font-size:14px;font-weight:500;padding:14px 30px;border-radius:6px;transition:background 0.2s,transform 0.15s}
+.btn-primary:hover{background:#0a3a6e;transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;color:#3a4a60;font-size:14px;padding:14px 30px;border-radius:6px;border:1px solid rgba(10,22,40,0.18);transition:border-color 0.2s}
+.btn-ghost:hover{border-color:#0f4c8a;color:#0f4c8a}
+
+section{padding:88px 6vw}
+section:nth-child(even){background:#f7f9fc}
+.section-label{font-size:11px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#0f4c8a;margin-bottom:10px}
+.section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(24px,3.5vw,36px);letter-spacing:-0.025em;color:#0a1628;margin-bottom:16px;line-height:1.15}
+.section-desc{font-size:16px;color:#3a4a60;max-width:600px;line-height:1.75;margin-bottom:48px}
+
+.servicos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-bottom:0}
+.servico-card{background:#fff;border:1px solid rgba(10,22,40,0.08);border-radius:12px;padding:32px 28px;transition:transform 0.2s,box-shadow 0.2s}
+.servico-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(10,22,40,0.07)}
+.servico-card.destaque{border-color:rgba(15,76,138,0.25);border-top:3px solid #0f4c8a}
+.servico-icon{font-size:28px;margin-bottom:16px}
+.servico-titulo{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:#0a1628;margin-bottom:10px;letter-spacing:-0.01em}
+.servico-desc{font-size:14px;color:#6b7a94;line-height:1.65}
+.servico-tag{display:inline-block;margin-top:16px;font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#0f4c8a;background:rgba(15,76,138,0.07);border-radius:4px;padding:4px 10px}
+
+.diferenciais{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.diferencial{display:flex;align-items:flex-start;gap:14px;padding:24px;background:#fff;border:1px solid rgba(10,22,40,0.08);border-radius:10px}
+.dif-num{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:rgba(15,76,138,0.15);line-height:1;flex-shrink:0;width:40px}
+.dif-text strong{display:block;font-size:14px;font-weight:500;color:#0a1628;margin-bottom:4px}
+.dif-text span{font-size:13px;color:#6b7a94;line-height:1.5}
+
+.audio-items{display:flex;flex-direction:column;gap:6px}
+.audio-card{background:#fff;border:1px solid rgba(10,22,40,0.08);border-radius:10px;overflow:hidden}
+.audio-card.com-ad{border-left:3px solid #0f4c8a}
+.audio-header{padding:20px 24px 16px;border-bottom:1px solid rgba(10,22,40,0.06)}
+.audio-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.badge{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;padding:3px 10px;border-radius:4px}
+.badge-al{background:rgba(10,22,40,0.06);color:#3a4a60}
+.badge-ad{background:rgba(15,76,138,0.1);color:#0f4c8a}
+.badge-edital{background:rgba(22,110,56,0.1);color:#166e38}
+.audio-titulo{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#0a1628;margin-bottom:4px}
+.audio-desc{font-size:13px;color:#6b7a94;line-height:1.5}
+.audio-player{padding:16px 24px;display:flex;align-items:center;gap:16px}
+.audio-player audio{flex:1;height:36px;accent-color:#0f4c8a}
+.audio-nota{font-size:11px;color:#b8c4d4;font-style:italic}
+
+.edital-bloco{background:#fff;border:1px solid rgba(22,110,56,0.2);border-left:4px solid #166e38;border-radius:0 12px 12px 0;padding:28px 32px;margin-top:40px}
+.edital-bloco h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#0a1628;margin-bottom:8px}
+.edital-bloco p{font-size:14px;color:#3a4a60;line-height:1.7}
+
+.contato-section{background:#f0f4f9}
+.contato-section .section-label{color:#0f4c8a}
+.contato-section .section-title{color:#0a1628}
+.contato-section .section-desc{color:#3a4a60}
+.contato-cards{display:flex;flex-wrap:wrap;gap:16px}
+.contato-card{display:flex;align-items:center;gap:16px;padding:20px 28px;background:#fff;border:1px solid rgba(10,22,40,0.08);border-radius:10px;min-width:220px;transition:background 0.2s,border-color 0.2s}
+.contato-card:hover{border-color:#0f4c8a;box-shadow:0 4px 16px rgba(15,76,138,0.08)}
+.contato-icon{width:42px;height:42px;border-radius:50%;background:rgba(15,76,138,0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.contato-tipo{font-size:11px;color:#6b7a94;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:2px}
+.contato-valor{font-size:14px;color:#0a1628}
+
+footer{background:#e8edf4;padding:28px 6vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(10,22,40,0.08)}
+.footer-name{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:#3a4a60}
+.footer-note{font-size:12px;color:#6b7a94}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner>*{animation:fadeUp 0.6s ease both}
+.hero-inner>*:nth-child(1){animation-delay:0.1s}
+.hero-inner>*:nth-child(2){animation-delay:0.2s}
+.hero-inner>*:nth-child(3){animation-delay:0.3s}
+.hero-inner>*:nth-child(4){animation-delay:0.4s}
+.hero-inner>*:nth-child(5){animation-delay:0.5s}
+
+@media(max-width:720px){
+  nav{padding:0 5vw}
+  .nav-links{gap:16px}
+  .nav-links a{font-size:11px}
+  section{padding:64px 5vw}
+  .hero{padding:90px 5vw 64px}
+  .contato-cards{flex-direction:column}
+  .contato-card{min-width:unset}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Miguel Castanho</a>
+  <div class="nav-links">
+    <a href="#servicos">Serviços</a>
+    <a href="#amostras">Amostras</a>
+    <a href="#diferenciais">Diferenciais</a>
+    <a href="#contato">Orçamento</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="badge-dot"></span> Cuiabá, MT — Projetos remotos em todo o Brasil</div>
+    <h1>Audiolivros e<br><em>Áudio-Descrição</em><br>para editoras</h1>
+    <p class="hero-sub">Produção profissional de audiolivros e áudio-descrição para publicações acessíveis, editais governamentais e projetos culturais. 4 anos de experiência com a Entrelinhas Editora.</p>
+    <div class="hero-edital">
+      <span class="edital-icon">🏆</span>
+      <div class="edital-text"><strong>Obras premiadas em edital governamental</strong> — projetos produzidos foram selecionados no Edital Estevão de Mendonça de Literatura Mato-grossense da Secretaria de Estado de Cultura, Esporte e Lazer (Secel), com destaque para a acessibilidade visual como diferencial de pontuação.</div>
+    </div>
+    <div class="hero-cta">
+      <a href="#contato" class="btn-primary">Solicitar orçamento</a>
+      <a href="#amostras" class="btn-ghost">Ouvir amostras</a>
+    </div>
+  </div>
+</section>
+
+<section id="servicos">
+  <p class="section-label">O que ofereço</p>
+  <h2 class="section-title">Serviços de produção</h2>
+  <p class="section-desc">Entrego do zero ao arquivo final — gravação, edição, sonoplastia e pós-produção para publicações acessíveis.</p>
+  <div class="servicos-grid">
+
+    <div class="servico-card destaque">
+      <div class="servico-icon">🎙️</div>
+      <div class="servico-titulo">Audiolivro completo</div>
+      <div class="servico-desc">Gravação profissional com narrador, edição, tratamento de voz, sonoplastia e masterização. Entrega em formato compatível com plataformas de distribuição e editais.</div>
+      <span class="servico-tag">Serviço principal</span>
+    </div>
+
+    <div class="servico-card destaque">
+      <div class="servico-icon">👁️</div>
+      <div class="servico-titulo">Áudio-Descrição</div>
+      <div class="servico-desc">Criação e locução de áudio-descrição para imagens, ilustrações e conteúdos visuais — tecnologia assistiva que garante pontuação em editais de acessibilidade e cumpre requisitos da Lei Brasileira de Inclusão.</div>
+      <span class="servico-tag">Diferencial em editais</span>
+    </div>
+
+    <div class="servico-card">
+      <div class="servico-icon">🎚️</div>
+      <div class="servico-titulo">Pós-produção de áudio</div>
+      <div class="servico-desc">Edição, limpeza de ruídos, equalização e masterização de gravações existentes. Ideal para projetos que já possuem narração gravada e precisam de acabamento profissional.</div>
+    </div>
+
+    <div class="servico-card">
+      <div class="servico-icon">📋</div>
+      <div class="servico-titulo">Consultoria para editais</div>
+      <div class="servico-desc">Orientação técnica sobre requisitos de acessibilidade em editais culturais e literários, com foco em maximizar a pontuação do projeto.</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="amostras">
+  <p class="section-label">Portfólio sonoro</p>
+  <h2 class="section-title">Amostras de trabalhos</h2>
+  <p class="section-desc">Trechos reais de projetos produzidos pela Entrelinhas Editora em parceria com a Secel-MT.</p>
+
+  <div class="audio-items">
+
+    <div class="audio-card">
+      <div class="audio-header">
+        <div class="audio-badges">
+          <span class="badge badge-al">Audiolivro</span>
+        </div>
+        <div class="audio-titulo">O Jardim da Minha Mãe</div>
+        <div class="audio-desc">Audiolivro infantil — gravação, sonoplastia e pós-produção completa. Entrelinhas Editora.</div>
+      </div>
+      <div class="audio-player">
+        <audio controls src="ojardimdaminhamae_amostra.mp3"></audio>
+      </div>
+    </div>
+
+    <div class="audio-card com-ad">
+      <div class="audio-header">
+        <div class="audio-badges">
+          <span class="badge badge-al">Audiolivro</span>
+          <span class="badge badge-ad">Áudio-Descrição</span>
+          <span class="badge badge-edital">Edital Secel-MT</span>
+        </div>
+        <div class="audio-titulo">Cobras da Minha Compota</div>
+        <div class="audio-desc">Audiolivro com áudio-descrição integrada — selecionado no Edital Estevão de Mendonça de Literatura Mato-grossense (Secel). A acessibilidade visual foi diferencial de pontuação.</div>
+      </div>
+      <div class="audio-player">
+        <audio controls src="cobrasdaminhacompota_amostra.mp3"></audio>
+      </div>
+    </div>
+
+    <div class="audio-card com-ad">
+      <div class="audio-header">
+        <div class="audio-badges">
+          <span class="badge badge-al">Audiolivro</span>
+          <span class="badge badge-ad">Áudio-Descrição</span>
+          <span class="badge badge-edital">Edital Secel-MT</span>
+        </div>
+        <div class="audio-titulo">Os Bichos Escrevem</div>
+        <div class="audio-desc">Audiolivro com áudio-descrição integrada — selecionado no Edital Estevão de Mendonça de Literatura Mato-grossense (Secel). A acessibilidade visual foi diferencial de pontuação.</div>
+      </div>
+      <div class="audio-player">
+        <audio controls src="osbichosescrevem_amostra.mp3"></audio>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="edital-bloco">
+    <h3>🏆 Edital Estevão de Mendonça — Secel-MT</h3>
+    <p>Os dois últimos projetos foram selecionados no <strong>Edital Estevão de Mendonça de Literatura Mato-grossense</strong> da Secretaria de Estado de Cultura, Esporte e Lazer (Secel) e publicados pela Entrelinhas Editora. A inclusão de áudio-descrição foi determinante para a pontuação — demonstrando que acessibilidade não é apenas uma obrigação legal, mas uma vantagem competitiva real em processos de seleção pública.</p>
+  </div>
+</section>
+
+<section id="diferenciais">
+  <p class="section-label">Por que contratar</p>
+  <h2 class="section-title">Diferenciais</h2>
+  <p class="section-desc">Experiência comprovada com projetos que passaram por editais governamentais e chegaram ao público com qualidade.</p>
+  <div class="diferenciais">
+    <div class="diferencial">
+      <div class="dif-num">01</div>
+      <div class="dif-text">
+        <strong>Experiência real com editais</strong>
+        <span>Projetos produzidos foram aprovados em edital estadual, com acessibilidade como diferencial de pontuação.</span>
+      </div>
+    </div>
+    <div class="diferencial">
+      <div class="dif-num">02</div>
+      <div class="dif-text">
+        <strong>Áudio-descrição técnica</strong>
+        <span>Produção de áudio-descrição para imagens e ilustrações — tecnologia assistiva rara no mercado regional e exigida pela Lei Brasileira de Inclusão.</span>
+      </div>
+    </div>
+    <div class="diferencial">
+      <div class="dif-num">03</div>
+      <div class="dif-text">
+        <strong>Produção completa</strong>
+        <span>Do roteiro ao arquivo final — gravação, edição, sonoplastia e masterização em um único fornecedor.</span>
+      </div>
+    </div>
+    <div class="diferencial">
+      <div class="dif-num">04</div>
+      <div class="dif-text">
+        <strong>4 anos com editora consolidada</strong>
+        <span>Experiência acumulada na Entrelinhas Editora, com processos de qualidade e entrega para distribuição governamental.</span>
+      </div>
+    </div>
+    <div class="diferencial">
+      <div class="dif-num">05</div>
+      <div class="dif-text">
+        <strong>Atendimento remoto</strong>
+        <span>Projetos entregues remotamente para editoras em todo o Brasil, com comunicação ágil e prazos cumpridos.</span>
+      </div>
+    </div>
+    <div class="diferencial">
+      <div class="dif-num">06</div>
+      <div class="dif-text">
+        <strong>Certificação técnica</strong>
+        <span>Certificado em Produção Editorial de Audiolivro — Conceito e Prática (20h) pela LABPUB.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="contato-section">
+  <p class="section-label">Vamos trabalhar juntos</p>
+  <h2 class="section-title">Solicite um orçamento</h2>
+  <p class="section-desc">Entre em contato pelo canal de sua preferência. Respondo em até 24 horas com proposta detalhada para o seu projeto.</p>
+  <div class="contato-cards">
+    <a href="mailto:miguelcccarracedo@gmail.com" class="contato-card">
+      <div class="contato-icon">✉</div>
+      <div><div class="contato-tipo">E-mail</div><div class="contato-valor">miguelcccarracedo@gmail.com</div></div>
+    </a>
+    <a href="https://wa.me/5565993593323" target="_blank" class="contato-card">
+      <div class="contato-icon">💬</div>
+      <div><div class="contato-tipo">WhatsApp</div><div class="contato-valor">(65) 99359-3323</div></div>
+    </a>
+    <a href="https://www.instagram.com/castanho065" target="_blank" class="contato-card">
+      <div class="contato-icon">📸</div>
+      <div><div class="contato-tipo">Instagram</div><div class="contato-valor">@castanho065</div></div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Miguel Castanho Carrion Carracedo — Produtor de Áudio</div>
